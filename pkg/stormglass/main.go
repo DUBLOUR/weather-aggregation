@@ -17,6 +17,7 @@ type Weather struct {
 
 func createRequest(city string) (*http.Request, error) {
 	loc, err := geocode.GetCityLocation(city)
+	//fmt.Println(loc.Lng, loc.Lat)
 	if err != nil {
 		return &http.Request{}, err
 	}
@@ -74,5 +75,4 @@ func GetWeather(city string) (Weather, error) {
 		Hum:  int(response.Core[0].Hum.Value),
 		Wind: response.Core[0].Wind.Value,
 	}, nil
-
 }

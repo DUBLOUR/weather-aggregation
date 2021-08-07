@@ -8,7 +8,7 @@ import (
 
 type Weather struct {
 	Temp float32
-	Hum int
+	Hum  int
 	Wind float32
 }
 
@@ -38,11 +38,11 @@ func GetWeather(city string) (Weather, error) {
 	}
 
 	response := new(struct {
-		Core struct{
+		Core struct {
 			Temp float32 `json:"temp"`
-			Hum int `json:"humidity"`
+			Hum  int     `json:"humidity"`
 		} `json:"main"`
-		Wind struct{
+		Wind struct {
 			Speed float32 `json:"speed"`
 		} `json:"wind"`
 	})
@@ -53,8 +53,7 @@ func GetWeather(city string) (Weather, error) {
 
 	return Weather{
 		Temp: response.Core.Temp,
-		Hum: response.Core.Hum,
+		Hum:  response.Core.Hum,
 		Wind: response.Wind.Speed,
 	}, nil
-
 }

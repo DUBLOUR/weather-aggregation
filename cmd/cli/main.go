@@ -18,7 +18,7 @@ type Weather struct {
 
 func main() {
 	city := "Kyiv"
-	city = "Kiev"
+	//city = "Kiev"
 	w1, err := openweathermap.GetWeather(city)
 	w2, err := weatherapi.GetWeather(city)
 	w3, err := stormglass.GetWeather(city)
