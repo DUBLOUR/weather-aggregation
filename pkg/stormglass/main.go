@@ -1,9 +1,8 @@
 package stormglass
 
 import (
-	"encoding/json"
+	"genesis_se/se-school-hw2-DUBLOUR/pkg/generalApiReader"
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/geocode"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -12,14 +11,14 @@ import (
 
 type Weather struct {
 	Temp float32
-	Hum int
+	Hum  int
 	Wind float32
 }
 
-func GetWeather(city string) (Weather, error) {
+func createRequest(city string) (*http.Request, error) {
 	loc, err := geocode.GetCityLocation(city)
 	if err != nil {
-		return Weather{}, nil
+		return &http.Request{}, err
 	}
 
 	nowTime := strconv.FormatInt(time.Now().UTC().Unix(), 10)
@@ -27,7 +26,7 @@ func GetWeather(city string) (Weather, error) {
 	//docs: https://docs.stormglass.io/#/weather
 	baseURL, err := url.Parse(ApiEndpoint)
 	if err != nil {
-		return Weather{}, nil
+		return &http.Request{}, err
 	}
 	params := url.Values{}
 	params.Add("lat", loc.Lat)
@@ -38,25 +37,22 @@ func GetWeather(city string) (Weather, error) {
 	params.Add("params", "airTemperature,windSpeed,humidity")
 	baseURL.RawQuery = params.Encode()
 
-	req, err := http.NewRequest("GET", baseURL.String(), nil)
+	r, err := http.NewRequest("GET", baseURL.String(), nil)
+	if err != nil {
+		return &http.Request{}, err
+	}
+	r.Header.Set("Authorization", ApiKey)
+	return r, nil
+}
+
+func GetWeather(city string) (Weather, error) {
+	req, err := createRequest(city)
 	if err != nil {
 		return Weather{}, nil
 	}
-	req.Header.Set(
-		"Authorization",
-		ApiKey,
-	)
 
-	res, _ := http.DefaultClient.Do(req)
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		return Weather{}, nil
-	}
-
-	type Response struct {
-		Core[] struct{
+	response := new(struct {
+		Core []struct {
 			Temp struct {
 				Value float32 `json:"sg"`
 			} `json:"airTemperature"`
@@ -67,16 +63,15 @@ func GetWeather(city string) (Weather, error) {
 				Value float32 `json:"sg"`
 			} `json:"windSpeed"`
 		} `json:"hours"`
-	}
+	})
 
-	response := new(Response)
-	if err := json.Unmarshal(body, &response); err != nil {
+	if err := generalApiReader.JsonRequest(req, &response); err != nil {
 		return Weather{}, err
 	}
 
 	return Weather{
 		Temp: response.Core[0].Temp.Value,
-		Hum: int(response.Core[0].Hum.Value),
+		Hum:  int(response.Core[0].Hum.Value),
 		Wind: response.Core[0].Wind.Value,
 	}, nil
 
