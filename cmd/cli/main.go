@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/weatherapi"
+	"genesis_se/se-school-hw2-DUBLOUR/pkg/stormglass"
 )
 
 //type Weather string
@@ -18,7 +18,9 @@ func main()  {
 	city := "Kyiv"
 	city = "Kiev"
 	//w, _ := openweathermap.GetWeather(city)
-	w, _ := weatherapi.GetWeather(city)
+	//w, _ := weatherapi.GetWeather(city)
+	w, _ := stormglass.GetWeather(city)
+
 	j, _ := json.Marshal(w)
 	fmt.Println(string(j))
 	//fmt.Println(w.temp, ' ', w.hum, ' ', w.wind)
