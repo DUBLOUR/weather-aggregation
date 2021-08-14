@@ -1,18 +1,32 @@
 package server
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"os"
+)
 
-type Logger struct{}
+type Logger struct{
+	logFile string
+}
 
-func (l Logger) Println(v ...interface{}) {
-	log.Println(v)
+func (l Logger) Print(v ...interface{}) {
+	f, err := os.OpenFile(l.logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Println(err)
+	}
+	defer f.Close()
+	if _, err := f.WriteString(fmt.Sprint(v...)); err != nil {
+		log.Println(err)
+	}
 }
 
 func (l Logger) Info(v ...interface{}) {
-	l.Println("(II)", v)
+	l.Print("(II) ", fmt.Sprintln(v...))
 }
 
-func (l Logger) Warning(v ...interface{}) {
-	l.Println("(WW)", v)
+func (l Logger) Warn(v ...interface{}) {
+	l.Print("(WW) ", fmt.Sprintln(v...))
 }
+
 

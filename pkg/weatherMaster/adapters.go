@@ -23,6 +23,10 @@ func (a OpenweathermapAdapter) InCity(city string) (Weather, error) {
 	}, nil
 }
 
+func (a OpenweathermapAdapter) Name() string {
+	return "OpenWeatherMap"
+}
+
 type StormglassAdapter struct {
 	WR stormglass.WeatherReport
 }
@@ -37,6 +41,9 @@ func (a StormglassAdapter) InCity(city string) (Weather, error) {
 		Hum:  int(rawWeather.Hum),
 		Wind: rawWeather.Wind,
 	}, nil
+}
+func (a StormglassAdapter) Name() string {
+	return "StormGlass"
 }
 
 type WeatherapiAdapter struct {
@@ -53,4 +60,8 @@ func (a WeatherapiAdapter) InCity(city string) (Weather, error) {
 		Hum:  rawWeather.Hum,
 		Wind: rawWeather.Wind,
 	}, nil
+}
+
+func (a WeatherapiAdapter) Name() string {
+	return "WeatherApi"
 }

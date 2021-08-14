@@ -16,13 +16,7 @@ type Weather struct {
 	Wind float32
 }
 
-func createRequest(city string) (*http.Request, error) {
-	loc, err := geocode.GetCityLocation(city)
-	//fmt.Println(loc.Lng, loc.Lat)
-	if err != nil {
-		return &http.Request{}, err
-	}
-
+func createRequest(lat string, lng string) (*http.Request, error) {
 	nowTime := strconv.FormatInt(time.Now().UTC().Unix(), 10)
 
 	//docs: https://docs.stormglass.io/#/weather
@@ -31,8 +25,8 @@ func createRequest(city string) (*http.Request, error) {
 		return &http.Request{}, err
 	}
 	params := url.Values{}
-	params.Add("lat", loc.Lat)
-	params.Add("lng", loc.Lng)
+	params.Add("lat", lat)
+	params.Add("lng", lng)
 	params.Add("start", nowTime)
 	params.Add("end", nowTime)
 	params.Add("source", StormglassSource)
@@ -50,7 +44,12 @@ func createRequest(city string) (*http.Request, error) {
 type WeatherReport struct{}
 
 func (w WeatherReport) InCity(city string) (Weather, error) {
-	req, err := createRequest(city)
+	loc, err := geocode.GetCityLocation(city)
+	if err != nil {
+		return Weather{}, err
+	}
+
+	req, err := createRequest(loc.Lat, loc.Lng)
 	if err != nil {
 		return Weather{}, nil
 	}

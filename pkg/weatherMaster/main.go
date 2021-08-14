@@ -11,12 +11,13 @@ type Weather struct {
 }
 
 type ISource interface {
+	Name() string
 	InCity(string) (Weather, error)
 }
 
 type ILogger interface {
 	Info(v ...interface{})
-	Warning(v ...interface{})
+	Warn(v ...interface{})
 }
 
 type IMetricHandler interface {
@@ -73,10 +74,11 @@ func (m *Master) WeatherInCity(city string) (Weather, error) {
 	for _, s := range m.sources {
 		w, err := s.InCity(city)
 		if err == nil {
-			m.log.Info("\tSuccessful")
+			m.log.Info("\tSuccessful with", s.Name())
 			return w, nil
 		}
+		m.log.Info("\tUnsuccessful at", s.Name())
 	}
-	m.log.Warning("\tCan't find working API")
+	m.log.Warn("\tCan't find working API")
 	return Weather{}, fmt.Errorf("have not working API")
 }

@@ -5,17 +5,21 @@ import (
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/stormglass"
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/weatherMaster"
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/weatherapi"
+	"log"
 )
 
 func CreateMaster() weatherMaster.Master {
 	m := weatherMaster.Master{}
 	m.InitSource(
-		weatherMaster.OpenweathermapAdapter{openweathermap.WeatherReport{}},
 		weatherMaster.WeatherapiAdapter{weatherapi.WeatherReport{}},
 		weatherMaster.StormglassAdapter{stormglass.WeatherReport{}},
+		weatherMaster.OpenweathermapAdapter{openweathermap.WeatherReport{}},
 	)
-	m.SetLogger(new(Logger))
-	m.SetMetricHandler(Metric{"data/city.json"})
+
+	m.SetLogger(Logger{LogFile})
+	log.Println("Set `" + LogFile + "` as LogFile")
+	m.SetMetricHandler(Metric{MetricDbFile})
+	log.Println("Set `" + MetricDbFile + "` as MetricDbFile")
 	return m
 }
 

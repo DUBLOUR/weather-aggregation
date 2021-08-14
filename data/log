@@ -1,0 +1,43 @@
+(II) Request:  Kyiv
+(II) 	Is it 4 -th request for Kyiv
+(II) 	Successful
+(II) Request:  Kyiv
+(II) 	Is it 5 -th request for Kyiv
+(II) 	Unsuccessful at WeatherApi
+(II) 	Successful with StormGlass
+(II) Request:  Kyiv
+(II) 	Is it 6 -th request for Kyiv
+(II) 	Unsuccessful at WeatherApi
+(II) 	Successful with StormGlass
+(II) Request:  Kremenchuk
+(II) 	Is it 1 -th request for Kremenchuk
+(II) 	Successful with WeatherApi
+(II) Request:  Kaniv
+(II) 	Is it 1 -th request for Kaniv
+(II) 	Successful with WeatherApi
+(II) Request:  New York
+(II) 	Is it 1 -th request for New York
+(II) 	Successful with WeatherApi
+(II) Request:  New Yourk
+(II) 	Is it 1 -th request for New Yourk
+(II) 	Successful with WeatherApi
+(II) Request:  Bad city name
+(II) 	Is it 1 -th request for Bad city name
+(II) 	Successful with WeatherApi
+(II) Request:  VERYVERYBADCITYNAME
+(II) 	Is it 1 -th request for VERYVERYBADCITYNAME
+(II) 	Unsuccessful at WeatherApi
+(II) 	Successful with StormGlass
+(II) Request:  ThisCityNeverExisted
+(II) 	Is it 1 -th request for ThisCityNeverExisted
+(II) 	Unsuccessful at WeatherApi
+(II) 	Successful with StormGlass
+(II) Request:  ThisCityNeverExisted
+(II) 	Is it 2 -th request for ThisCityNeverExisted
+(II) 	Unsuccessful at WeatherApi
+(II) 	Unsuccessful at StormGlass
+(II) 	Unsuccessful at OpenWeatherMap
+(WW) 	Can't find working API
+(II) Request:  Kyiv
+(II) 	Is it 8 -th request for Kyiv
+(II) 	Successful with StormGlass

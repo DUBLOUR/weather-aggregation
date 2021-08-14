@@ -1,6 +1,7 @@
 package geocode
 
 import (
+	"fmt"
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/generalApiReader"
 	"net/http"
 	"net/url"
@@ -37,11 +38,18 @@ func GetCityLocation(city string) (Location, error) {
 	}
 
 	response := new(struct {
+		Error struct{
+			Code string `json:"code"`
+		} `json:"error"`
 		Lat string `json:"latt"`
 		Lng string `json:"longt"`
 	})
 	if err := generalApiReader.JsonRequest(req, &response); err != nil {
 		return Location{}, err
+	}
+
+	if response.Error.Code != "" {
+		return Location{}, fmt.Errorf("undefined city")
 	}
 
 	return Location{
