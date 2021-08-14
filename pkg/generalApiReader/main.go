@@ -32,8 +32,6 @@ func JsonRequest(req *http.Request, result interface{}) error {
 		return err
 	}
 
-	//log.Println(string(body))
-
 	if err := json.Unmarshal(body, &result); err != nil {
 		return err
 	}

@@ -1,6 +1,7 @@
 package stormglass
 
 import (
+	"fmt"
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/generalApiReader"
 	"genesis_se/se-school-hw2-DUBLOUR/pkg/geocode"
 	"net/http"
@@ -11,7 +12,7 @@ import (
 
 type Weather struct {
 	Temp float32
-	Hum  int
+	Hum  float32
 	Wind float32
 }
 
@@ -34,7 +35,7 @@ func createRequest(city string) (*http.Request, error) {
 	params.Add("lng", loc.Lng)
 	params.Add("start", nowTime)
 	params.Add("end", nowTime)
-	params.Add("source", "sg")
+	params.Add("source", StormglassSource)
 	params.Add("params", "airTemperature,windSpeed,humidity")
 	baseURL.RawQuery = params.Encode()
 
@@ -46,7 +47,9 @@ func createRequest(city string) (*http.Request, error) {
 	return r, nil
 }
 
-func GetWeather(city string) (Weather, error) {
+type WeatherReport struct{}
+
+func (w WeatherReport) InCity(city string) (Weather, error) {
 	req, err := createRequest(city)
 	if err != nil {
 		return Weather{}, nil
@@ -54,15 +57,9 @@ func GetWeather(city string) (Weather, error) {
 
 	response := new(struct {
 		Core []struct {
-			Temp struct {
-				Value float32 `json:"sg"`
-			} `json:"airTemperature"`
-			Hum struct {
-				Value float32 `json:"sg"`
-			} `json:"humidity"`
-			Wind struct {
-				Value float32 `json:"sg"`
-			} `json:"windSpeed"`
+			Temp map[string]float32 `json:"airTemperature"`
+			Hum  map[string]float32 `json:"humidity"`
+			Wind map[string]float32 `json:"windSpeed"`
 		} `json:"hours"`
 	})
 
@@ -70,9 +67,13 @@ func GetWeather(city string) (Weather, error) {
 		return Weather{}, err
 	}
 
+	if _, hasSource := response.Core[0].Temp[StormglassSource]; !hasSource {
+		return Weather{}, fmt.Errorf("invalid Stormglass source")
+	}
+
 	return Weather{
-		Temp: response.Core[0].Temp.Value,
-		Hum:  int(response.Core[0].Hum.Value),
-		Wind: response.Core[0].Wind.Value,
+		Temp: response.Core[0].Temp[StormglassSource],
+		Hum:  response.Core[0].Hum[StormglassSource],
+		Wind: response.Core[0].Wind[StormglassSource],
 	}, nil
 }

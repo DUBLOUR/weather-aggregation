@@ -31,7 +31,9 @@ func createRequest(city string) (*http.Request, error) {
 	return r, nil
 }
 
-func GetWeather(city string) (Weather, error) {
+type WeatherReport struct{}
+
+func (w WeatherReport) InCity(city string) (Weather, error) {
 	req, err := createRequest(city)
 	if err != nil {
 		return Weather{}, nil

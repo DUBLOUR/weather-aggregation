@@ -3,27 +3,22 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/openweathermap"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/stormglass"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/weatherapi"
+	"genesis_se/se-school-hw2-DUBLOUR/internal/server"
+	"os"
 )
 
-//type Weather string
-
-type Weather struct {
-	Temp float32
-	Hum  int
-	Wind float32
-}
-
 func main() {
-	city := "Kyiv"
+	fmt.Println(os.Args)
+	if !(len(os.Args) == 2) {
+		fmt.Println("Use as `go run main.go Kyiv`")
+		os.Exit(1)
+	}
+	city := os.Args[1]
+	//city = "Kyiv"
 	//city = "Kiev"
-	w1, err := openweathermap.GetWeather(city)
-	w2, err := weatherapi.GetWeather(city)
-	w3, err := stormglass.GetWeather(city)
 
-	j, _ := json.Marshal([]Weather{Weather(w1), Weather(w2), Weather(w3)})
+	w, err := server.HandleCity(city)
+	j, _ := json.Marshal(w)
 	fmt.Println(string(j))
 	fmt.Println(err)
 	//fmt.Println(w.temp, ' ', w.hum, ' ', w.wind)
