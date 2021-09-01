@@ -1,6 +1,6 @@
 # weather-aggregation
 
-The application aggregates different weather API sources (by default is [OpenWeather](https://openweathermap.org/), [Stormglass.io](https://stormglass.io/), [Weather API](https://www.weatherapi.com/)) and return local temperature, humidity and speed of wind for the requested city.
+The application aggregates different weather API sources (by default is [OpenWeather](https://openweathermap.org/), [Stormglass.io](https://stormglass.io/), [Weather API](https://www.weatherapi.com/)) and returns local temperature, humidity and speed of wind for the requested city.
 
 ##### Setup: 
 
@@ -16,9 +16,9 @@ or
 
 `./bin/cli Paris`
 
-**Note:** for easy launch all API keys are distributed with code. If you will launch the app more than 2-3 times please create your keys and change `pkg/*/config.go` files.
+**Note:** for easy launch all API keys are distributed with code. If you are going to launch the app more than 2-3 times please create your keys and change `pkg/*/config.go` files.
 
-The possible output of the program:
+A possible output of the program:
 ```
 [./bin/cli Kyiv]
 2021/09/01 13:42:55 Set `data/log` as LogFile
@@ -31,7 +31,7 @@ The possible output of the program:
 
 The trace-log describing the startup and tracking HTTP requests is printed to stdout.
 
-The permanent log is writing to `data/log`.
+The permanent log is written to `data/log`.
 
 Analytics (frequency of city requests) storage in `data/city.json`.
 
