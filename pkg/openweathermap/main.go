@@ -1,7 +1,7 @@
 package openweathermap
 
 import (
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/generalApiReader"
+	"github.com/DUBLOUR/weather-aggregation/pkg/generalApiReader"
 	"net/http"
 	"net/url"
 )

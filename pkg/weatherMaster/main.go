@@ -26,8 +26,8 @@ type IMetricHandler interface {
 }
 
 type Master struct {
-	sources []ISource
-	log ILogger
+	sources       []ISource
+	log           ILogger
 	metricHandler IMetricHandler
 }
 

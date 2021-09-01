@@ -1,10 +1,10 @@
 package server
 
 import (
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/openweathermap"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/stormglass"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/weatherMaster"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/weatherapi"
+	"github.com/DUBLOUR/weather-aggregation/pkg/openweathermap"
+	"github.com/DUBLOUR/weather-aggregation/pkg/stormglass"
+	"github.com/DUBLOUR/weather-aggregation/pkg/weatherMaster"
+	"github.com/DUBLOUR/weather-aggregation/pkg/weatherapi"
 	"log"
 )
 

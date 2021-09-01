@@ -41,3 +41,6 @@
 (II) Request:  Kyiv
 (II) 	Is it 8 -th request for Kyiv
 (II) 	Successful with StormGlass
+(II) Request:  Paris
+(II) 	Is it 1 -th request for Paris
+(II) 	Successful with WeatherApi

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-type Metric struct{
+type Metric struct {
 	dbFile string
 }
 
@@ -30,7 +30,6 @@ func (m Metric) save(data map[string]int) error {
 	}
 	return ioutil.WriteFile(m.dbFile, []byte(jsonData), 0644)
 }
-
 
 func (m Metric) Inc(key string) error {
 	a, err := m.load()

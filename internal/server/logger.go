@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-type Logger struct{
+type Logger struct {
 	logFile string
 }
 
@@ -28,5 +28,3 @@ func (l Logger) Info(v ...interface{}) {
 func (l Logger) Warn(v ...interface{}) {
 	l.Print("(WW) ", fmt.Sprintln(v...))
 }
-
-

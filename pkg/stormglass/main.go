@@ -2,8 +2,8 @@ package stormglass
 
 import (
 	"fmt"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/generalApiReader"
-	"genesis_se/se-school-hw2-DUBLOUR/pkg/geocode"
+	"github.com/DUBLOUR/weather-aggregation/pkg/generalApiReader"
+	"github.com/DUBLOUR/weather-aggregation/pkg/geocode"
 	"net/http"
 	"net/url"
 	"strconv"

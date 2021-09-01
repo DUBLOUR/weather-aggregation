@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"genesis_se/se-school-hw2-DUBLOUR/internal/server"
+	"github.com/DUBLOUR/weather-aggregation/internal/server"
 	"os"
 )
 
@@ -14,12 +14,8 @@ func main() {
 		os.Exit(1)
 	}
 	city := os.Args[1]
-	//city = "Kyiv"
-	//city = "Kiev"
 
-	w, err := server.HandleCity(city)
+	w, _ := server.HandleCity(city)
 	j, _ := json.Marshal(w)
 	fmt.Println(string(j))
-	fmt.Println(err)
-	//fmt.Println(w.temp, ' ', w.hum, ' ', w.wind)
 }
